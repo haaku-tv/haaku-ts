@@ -1,0 +1,11 @@
+{
+  "name": "@haaku/haaku-ts",
+  "license": "AGPL-3.0-or-later",
+  "version": "0.1.0",
+  "tasks": {
+    "dev": "deno run --watch --allow-net main.ts"
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1"
+  }
+}
