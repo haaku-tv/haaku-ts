@@ -9,5 +9,5 @@ export function objectToParameters(params: SimpleObject): string {
     Object.entries(params).map(([key, val]) => [key, String(val)]),
   );
 
-  return new URLSearchParams(stringifiedParams).toString();
+  return `?${new URLSearchParams(stringifiedParams).toString()}`
 }

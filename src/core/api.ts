@@ -19,7 +19,7 @@ const createApi = (config: HaakuConfig) => {
       {
         method,
         headers: {
-          "X-API-Key": `Bearer ${config.apiKey}`,
+          "X-API-Key": `${config.apiKey}`,
           "Content-Type": "application/json",
           ...headers,
         },
@@ -51,11 +51,9 @@ const createApi = (config: HaakuConfig) => {
 export type ApiClient = ReturnType<typeof createApi>;
 
 export class Api {
-  private readonly config: HaakuConfig;
   private readonly client: ApiClient;
 
   constructor(config: HaakuConfig) {
-    this.config = config;
     this.client = createApi(config);
   }
 
