@@ -6,5 +6,5 @@ const haaku = new Haaku({
   fetch,
 });
 
-const test = await haaku.admin.unlockUser({id: "local_RiG2fHoT4dMAU9Ien85aTg"})
+const test = await haaku.calendars.all.dvd({startDate: '2026-11-25', days: '12'})
 console.log(test)

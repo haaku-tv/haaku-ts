@@ -1,3 +1,5 @@
+export type SignupPolicies = "approval"
+
 export type UserStatuses = "active" | "banned"
 
 export type User = {
