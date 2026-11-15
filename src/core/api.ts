@@ -48,7 +48,8 @@ const createApi = (config: HaakuConfig): ApiClient => {
       return undefined as T;
     }
 
-    return await response.json();
+    const text = await response.text();
+    return (text.length > 0 ? JSON.parse(text) : undefined) as T;
   };
 
   return {

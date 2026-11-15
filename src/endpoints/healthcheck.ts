@@ -1,6 +1,9 @@
 import { BaseEndpoint } from "../core/base.ts";
 import type { HaakuConfig } from "../types/class.ts";
-import type { HealthcheckResponse } from "../types/endpoints/healthcheck.ts";
+import type {
+  HealthcheckReadinessResponse,
+  HealthcheckResponse,
+} from "../types/endpoints/healthcheck.ts";
 
 export class HealthCheckEndpoint extends BaseEndpoint {
   constructor(
@@ -10,5 +13,9 @@ export class HealthCheckEndpoint extends BaseEndpoint {
   }
   async healthcheck(): Promise<HealthcheckResponse> {
     return await this.api.get("/healthz");
+  }
+
+  readiness(): Promise<HealthcheckReadinessResponse> {
+    return this.api.get("/readyz");
   }
 }
