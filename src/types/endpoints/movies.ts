@@ -1,11 +1,5 @@
-/**
- * Response types for the `/v1/movies` group.
- *
- * The OpenAPI document only names most of these responses; the shapes follow
- * the Go handlers in `internal/handlers/media`, `discovery`, `updates`,
- * `tmdbmeta`, `watch` and `reports`.
- */
-
+import type { LanguageCode } from "@hongminhee/iso639-1";
+import type { CountryCode } from "country-data-ts/countries";
 import type {
   CalendarContractMovie,
   CalendarImages,
@@ -14,10 +8,6 @@ import type {
   CalendarMovieExtended,
   CalendarRatingSummary,
 } from "./calendars.ts";
-
-// ---------------------------------------------------------------------------
-// Inputs
-// ---------------------------------------------------------------------------
 
 export type MovieId = string | number;
 export type MovieIdType = "tmdb" | "imdb" | "tvdb";
@@ -62,7 +52,6 @@ export type MovieCommentsQuery = MoviePageQuery & {
 };
 
 export type MovieIdQuery = {
-  /** Resolve the `id` segment as an external id instead of a row id/slug. */
   idType?: MovieIdType;
 };
 
@@ -71,13 +60,11 @@ export type MovieDetailQuery = MovieIdQuery & {
 };
 
 export type MovieWatchQuery = MovieIdQuery & {
-  /** Two-letter country code. Defaults to `us` server-side. */
-  country?: string;
+  country?: CountryCode;
 };
 
 export type MovieTranslationsQuery = MovieIdQuery & {
-  /** Filter the contract translation list to one language. */
-  language?: string;
+  language?: LanguageCode;
 };
 
 export type MovieUpdatesQuery = MoviePageQuery & {
@@ -88,10 +75,6 @@ export type MovieReportInput = {
   reason: MovieReportReason;
   description?: string;
 };
-
-// ---------------------------------------------------------------------------
-// Shared media shapes
-// ---------------------------------------------------------------------------
 
 export type MovieResponse = CalendarMovie;
 export type MovieIds = CalendarMediaIds;
@@ -139,10 +122,6 @@ export type MovieStats = {
   favorited: number;
   recommended: number | null;
 };
-
-// ---------------------------------------------------------------------------
-// Comments, lists and watching
-// ---------------------------------------------------------------------------
 
 export type MovieComment = {
   id: number;
@@ -219,10 +198,6 @@ export type MovieWatchingUser = {
   };
 };
 
-// ---------------------------------------------------------------------------
-// Discovery and ranked contract feeds
-// ---------------------------------------------------------------------------
-
 export type MovieRankedEntry = {
   watcher_count: number;
   play_count: number;
@@ -251,10 +226,6 @@ export type MovieUpdateEntry = {
   movie: MovieResponse;
 };
 
-// ---------------------------------------------------------------------------
-// Provider metadata and translations
-// ---------------------------------------------------------------------------
-
 export type MovieVideo = {
   title: string;
   url: string;
@@ -263,12 +234,12 @@ export type MovieVideo = {
   size: number;
   official: boolean;
   published_at: string;
-  country: string;
-  language: string;
+  country: CountryCode | "";
+  language: LanguageCode | "";
 };
 
 export type MovieRelease = {
-  country: string;
+  country: CountryCode;
   certification: string | null;
   release_date: string;
   release_type: string;
@@ -277,7 +248,7 @@ export type MovieRelease = {
 
 export type MovieStudio = {
   name: string;
-  country: string | null;
+  country: CountryCode | null;
   ids: {
     slug: string;
     trakt: number;
@@ -289,12 +260,12 @@ export type MovieContractTranslation = {
   title: string | null;
   overview: string | null;
   tagline: string | null;
-  language: string;
-  country: string | null;
+  language: LanguageCode;
+  country: CountryCode | null;
 };
 
 export type MovieTranslation = {
-  language: string;
+  language: LanguageCode;
   title: string;
   overview: string;
   tagline?: string;
@@ -302,12 +273,8 @@ export type MovieTranslation = {
 
 export type MovieAlias = {
   title: string;
-  country: string;
+  country: CountryCode | "";
 };
-
-// ---------------------------------------------------------------------------
-// Watch providers and reports
-// ---------------------------------------------------------------------------
 
 export type MovieProvider = {
   provider_id: number;

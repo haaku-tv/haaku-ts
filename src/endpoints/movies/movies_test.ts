@@ -94,8 +94,8 @@ const cases: MovieCase[] = [
   },
   {
     name: "releases",
-    call: (h) => h.movies.releases(550, "us", { idType: "tmdb" }),
-    path: "/v1/movies/550/releases/us?id_type=tmdb",
+    call: (h) => h.movies.releases(550, "US", { idType: "tmdb" }),
+    path: "/v1/movies/550/releases/US?id_type=tmdb",
   },
   {
     name: "report",
@@ -132,8 +132,8 @@ const cases: MovieCase[] = [
   },
   {
     name: "watch",
-    call: (h) => h.movies.watch(550, { idType: "tmdb", country: "gb" }),
-    path: "/v1/movies/550/watch?id_type=tmdb&country=gb",
+    call: (h) => h.movies.watch(550, { idType: "tmdb", country: "GB" }),
+    path: "/v1/movies/550/watch?id_type=tmdb&country=GB",
   },
   {
     name: "watching",
@@ -142,13 +142,13 @@ const cases: MovieCase[] = [
   },
   {
     name: "watch now",
-    call: (h) => h.movies.watchNow(550, "us", { idType: "tmdb" }),
-    path: "/v1/movies/550/watchnow/us?id_type=tmdb",
+    call: (h) => h.movies.watchNow(550, "US", { idType: "tmdb" }),
+    path: "/v1/movies/550/watchnow/US?id_type=tmdb",
   },
   {
     name: "justwatch links",
-    call: (h) => h.movies.justWatchLinks(550, "us"),
-    path: "/v1/movies/550/watchnow/justwatch_links/us",
+    call: (h) => h.movies.justWatchLinks(550, "US"),
+    path: "/v1/movies/550/watchnow/justwatch_links/US",
   },
   {
     name: "anticipated",

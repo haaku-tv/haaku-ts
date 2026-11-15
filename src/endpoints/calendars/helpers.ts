@@ -4,7 +4,6 @@ import { compactQuery } from "../../utils/query.ts";
 
 export { compactQuery as calendarQuery };
 
-/** Resolves the window defaults and returns the `/{startDate}/{days}` suffix. */
 export function calendarWindow(input: CalendarInput = {}): {
   startDate: string;
   days: number;
@@ -17,7 +16,6 @@ export function calendarWindow(input: CalendarInput = {}): {
   };
 }
 
-/** Appends a calendar window to a base path. */
 export function calendarPath(
   basePath: string,
   input: CalendarInput = {},

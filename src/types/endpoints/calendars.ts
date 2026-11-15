@@ -1,31 +1,12 @@
-/**
- * Calendar responses come in two shapes:
- *
- * - The contract-shaped feeds (`all`/`my`, `releases/hot`) return a bare array
- *   of release entries, using the Trakt-style `ids`/`images` objects.
- * - The personal feeds (`favorites`/`friends`/`watched`) return the paginated
- *   `{ items, page, limit, row_count }` envelope with the internal media shape.
- *
- * The OpenAPI document only names these responses, so these types follow the
- * handlers that actually build them (`internal/handlers/calendar`).
- */
+import type { CountryCode } from "country-data-ts/countries";
 
-// ---------------------------------------------------------------------------
-// Inputs
-// ---------------------------------------------------------------------------
-
-/** A calendar window. `startDate` defaults to today and `days` to 7. */
 export type CalendarInput = {
-  /** A `YYYY-MM-DD` string or a Date, formatted from its local date parts. */
   startDate?: string | Date;
-  /** Number of calendar days in the window. The server clamps this to 1-30. */
   days?: number;
 };
 
-/** The classification accepted by the personal show feeds and the `type` query. */
 export type CalendarShowType = "new" | "premieres" | "finale";
 
-/** Extended payload level accepted by the movie calendars. */
 export type CalendarMovieExtended =
   | "min"
   | "full"
@@ -33,7 +14,6 @@ export type CalendarMovieExtended =
   | "images"
   | "all";
 
-/** Media kinds accepted by the merged media calendars. */
 export type CalendarMediaType = "movie" | "show";
 
 export type CalendarPageInput = CalendarInput & {
@@ -46,8 +26,7 @@ export type CalendarPersonalShowsInput = CalendarPageInput & {
 };
 
 export type CalendarCountriesInput = CalendarInput & {
-  /** ISO 3166-1 country codes. Accepts an array or a comma-separated string. */
-  countries?: string[] | string;
+  countries?: CountryCode[] | CountryCode;
 };
 
 export type CalendarMediaInput = CalendarInput & {
@@ -58,11 +37,6 @@ export type CalendarMovieInput = CalendarInput & {
   extended?: CalendarMovieExtended;
 };
 
-// ---------------------------------------------------------------------------
-// Contract-shaped entries (all/my and releases/hot)
-// ---------------------------------------------------------------------------
-
-/** The contract's id object: every key is present, unheld ids are `null`. */
 export type CalendarIds = {
   trakt: number;
   slug: string;
@@ -71,7 +45,6 @@ export type CalendarIds = {
   tvdb: number | null;
 };
 
-/** Artwork keys for movies and shows. Every key present, possibly empty. */
 export type CalendarImages = {
   fanart: string[];
   poster: string[];
@@ -148,20 +121,17 @@ export type CalendarContractEpisode = {
   images: CalendarEpisodeImages;
 };
 
-/** One episode airing in the window, as served by the show calendars. */
 export type CalendarShowRelease = {
   first_aired: string;
   episode: CalendarContractEpisode;
   show: CalendarContractShow;
 };
 
-/** One movie release, as served by the DVD and streaming calendars. */
 export type CalendarMovieRelease = {
   released: string;
   movie: CalendarContractMovie;
 };
 
-/** One row of the merged media calendar. */
 export type CalendarMediaRelease =
   | {
     released: string | null;
@@ -178,11 +148,6 @@ export type CalendarMediaRelease =
     movie?: never;
   };
 
-// ---------------------------------------------------------------------------
-// Rich movie response (all/my movies)
-// ---------------------------------------------------------------------------
-
-/** The standard media id object (`id` and `trakt` carry the same row id). */
 export type CalendarMediaIds = {
   id: number;
   trakt: number;
@@ -198,7 +163,6 @@ export type CalendarRatingSummary = {
   distribution: Record<string, number>;
 };
 
-/** The richer movie shape served by `/calendars/{target}/movies`. */
 export type CalendarMovie = {
   ids: CalendarMediaIds;
   title: string;
@@ -231,10 +195,6 @@ export type CalendarMovieResponse = {
   movie: CalendarMovie;
 };
 
-// ---------------------------------------------------------------------------
-// Paginated personal feeds (favorites/friends/watched)
-// ---------------------------------------------------------------------------
-
 export type CalendarEnvelope<T> = {
   items: T[];
   page: number;
@@ -242,7 +202,6 @@ export type CalendarEnvelope<T> = {
   row_count: number;
 };
 
-/** The internal episode shape used inside the personal feed envelope. */
 export type CalendarEpisode = {
   ids: CalendarMediaIds;
   season: number;

@@ -1,4 +1,3 @@
-/** Formats a date (or a `YYYY-MM-DD` string) as an API date segment. */
 export function formatDate(input: string | Date): string {
   if (typeof input === "string") {
     return input;

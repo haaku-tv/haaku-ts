@@ -1,9 +1,5 @@
 import type { SimpleObject } from "../types/api.ts";
 
-/**
- * Builds a query object, dropping unset values and joining arrays with the
- * comma-separated form the API expects (`?countries=us,gb`).
- */
 export function compactQuery(
   params: Record<string, string | number | boolean | string[] | undefined>,
 ): SimpleObject | undefined {

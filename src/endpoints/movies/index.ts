@@ -1,3 +1,5 @@
+import type { LanguageCode } from "@hongminhee/iso639-1";
+import type { CountryCode } from "country-data-ts/countries";
 import { BaseEndpoint } from "../../core/base.ts";
 import type { HaakuConfig } from "../../types/class.ts";
 import type {
@@ -44,23 +46,10 @@ import { compactQuery } from "../../utils/query.ts";
 
 const idSegment = (id: MovieId): string => encodeURIComponent(String(id));
 
-/**
- * The `/v1/movies` group.
- *
- * Reads are flat methods that mirror the URL segments so the chain stays
- * predictable:
- *
- *   haaku.movies.get("550")
- *   haaku.movies.comments("550", "newest", { limit: 10 })
- *   haaku.movies.collected("weekly", { page: 2 })
- *   haaku.movies.watchNow("550", "us")
- */
 export class MovieEndpoint extends BaseEndpoint {
   constructor(config: HaakuConfig) {
     super(config);
   }
-
-  // --- Detail and relations ------------------------------------------------
 
   get(id: MovieId, input: MovieDetailQuery = {}): Promise<MovieResponse> {
     return this.api.get(`/v1/movies/${idSegment(id)}`, {
@@ -144,11 +133,9 @@ export class MovieEndpoint extends BaseEndpoint {
     });
   }
 
-  // --- Provider metadata ---------------------------------------------------
-
   releases(
     id: MovieId,
-    country: string,
+    country: CountryCode,
     input: MovieIdQuery = {},
   ): Promise<MovieRelease[]> {
     return this.api.get(
@@ -177,7 +164,7 @@ export class MovieEndpoint extends BaseEndpoint {
 
   translation(
     id: MovieId,
-    language: string,
+    language: LanguageCode,
     input: MovieIdQuery = {},
   ): Promise<MovieTranslation[]> {
     return this.api.get(
@@ -191,8 +178,6 @@ export class MovieEndpoint extends BaseEndpoint {
       params: compactQuery({ id_type: input.idType }),
     });
   }
-
-  // --- Watch providers -----------------------------------------------------
 
   watch(
     id: MovieId,
@@ -208,7 +193,7 @@ export class MovieEndpoint extends BaseEndpoint {
 
   watchNow(
     id: MovieId,
-    country: string,
+    country: CountryCode,
     input: MovieIdQuery = {},
   ): Promise<MovieWatchNow> {
     return this.api.get(
@@ -219,7 +204,7 @@ export class MovieEndpoint extends BaseEndpoint {
 
   justWatchLinks(
     id: MovieId,
-    country: string,
+    country: CountryCode,
     input: MovieIdQuery = {},
   ): Promise<MovieJustWatchLinks> {
     return this.api.get(
@@ -231,8 +216,6 @@ export class MovieEndpoint extends BaseEndpoint {
   refresh(id: MovieId): Promise<MovieRefreshResponse> {
     return this.api.post(`/v1/movies/${idSegment(id)}/refresh/justwatch`);
   }
-
-  // --- Discovery and rankings ---------------------------------------------
 
   trending(input: MovieUpdatesQuery = {}): Promise<MovieResponse[]> {
     return this.api.get("/v1/movies/trending", {
@@ -333,8 +316,6 @@ export class MovieEndpoint extends BaseEndpoint {
       params: compactQuery({ page: input.page, limit: input.limit }),
     });
   }
-
-  // --- Reports -------------------------------------------------------------
 
   report(id: MovieId, input: MovieReportInput): Promise<MovieReport> {
     return this.api.post(`/v1/movies/${idSegment(id)}/report`, {

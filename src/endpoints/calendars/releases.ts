@@ -6,7 +6,6 @@ import type {
 } from "../../types/endpoints/calendars.ts";
 import { calendarPath, calendarQuery } from "./helpers.ts";
 
-/** The public hot-release feeds. */
 export class CalendarReleasesEndpoint extends BaseEndpoint {
   constructor(config: HaakuConfig) {
     super(config);

@@ -11,11 +11,6 @@ import type {
 import { calendarPath, calendarQuery } from "./helpers.ts";
 import { CalendarShowsEndpoint } from "./shows.ts";
 
-/**
- * The `all` or `my` calendar scope.
- *
- * `all` is public; `my` is scoped to the caller's watchlist and history.
- */
 export class CalendarTargetEndpoint extends BaseEndpoint {
   constructor(
     config: HaakuConfig,

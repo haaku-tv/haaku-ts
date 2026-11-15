@@ -6,12 +6,6 @@ import type {
 } from "../../types/endpoints/calendars.ts";
 import { calendarPath } from "./helpers.ts";
 
-/**
- * The contract show calendars for one target (`all` or `my`).
- *
- * The plain feed and the new/premieres/finales feeds share a namespace, so the
- * plain feed is `.all(...)` rather than a callable that also carries methods.
- */
 export class CalendarShowsEndpoint extends BaseEndpoint {
   constructor(
     config: HaakuConfig,
