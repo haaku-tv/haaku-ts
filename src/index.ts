@@ -4,4 +4,7 @@ export { COUNTRY_CODES, isCountryCode } from "country-data-ts/countries";
 export type { CountryCode } from "country-data-ts/countries";
 export * from "./core/index.ts";
 export * from "./types/endpoints/calendars.ts";
+export * from "./types/endpoints/episodes.ts";
 export * from "./types/endpoints/movies.ts";
+export * from "./types/endpoints/seasons.ts";
+export * from "./types/endpoints/shows.ts";

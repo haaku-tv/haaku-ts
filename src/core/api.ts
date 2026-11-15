@@ -44,6 +44,10 @@ const createApi = (config: HaakuConfig): ApiClient => {
       throw await response.json() as ErrorEnvelope;
     }
 
+    if (response.status === 204) {
+      return undefined as T;
+    }
+
     return await response.json();
   };
 
