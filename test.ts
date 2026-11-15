@@ -6,5 +6,8 @@ const haaku = new Haaku({
   fetch,
 });
 
-const test = await haaku.calendars.all.dvd({startDate: '2026-11-25', days: '12'})
-console.log(test)
+const test = await haaku.calendars.all.dvd({
+  startDate: "2026-11-25",
+  days: 12,
+});
+console.log(test);

@@ -1,3 +1,3 @@
 export type HealthcheckResponse = {
-    status: "ok"
-}
+  status: "ok";
+};

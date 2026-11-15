@@ -1,14 +1,27 @@
-import { ErrorEnvelope, HTTPMethods, SimpleObject, RequestOptions } from "../types/api.ts";
-import { HaakuConfig } from "../types/class.ts";
+import type {
+  ErrorEnvelope,
+  HTTPMethods,
+  RequestOptions,
+  SimpleObject,
+} from "../types/api.ts";
+import type { HaakuConfig } from "../types/class.ts";
 import { isRecord, objectToParameters } from "../utils/utils.ts";
 
-const createApi = (config: HaakuConfig) => {
+export type ApiClient = {
+  get<T>(path: string, opts?: RequestOptions): Promise<T>;
+  post<T>(path: string, opts?: RequestOptions): Promise<T>;
+  put<T>(path: string, opts?: RequestOptions): Promise<T>;
+  patch<T>(path: string, opts?: RequestOptions): Promise<T>;
+  delete<T>(path: string, opts?: RequestOptions): Promise<T>;
+};
+
+const createApi = (config: HaakuConfig): ApiClient => {
   const baseFetch = async <T>(
     method: HTTPMethods,
     path: string,
     params?: SimpleObject | string,
-    body?: Record<string, any>,
-    headers?: Record<string, any>,
+    body?: Record<string, unknown>,
+    headers?: Record<string, string>,
   ): Promise<T> => {
     if (isRecord(params)) {
       params = objectToParameters(params);
@@ -47,8 +60,6 @@ const createApi = (config: HaakuConfig) => {
       baseFetch<T>("DELETE", path, opts.params, opts.body, opts.headers),
   };
 };
-
-export type ApiClient = ReturnType<typeof createApi>;
 
 export class Api {
   private readonly client: ApiClient;

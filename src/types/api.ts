@@ -14,6 +14,6 @@ export type HTTPMethods =
 
 export type RequestOptions = {
   params?: SimpleObject | string;
-  body?: Record<string, any>;
-  headers?: Record<string, any>;
+  body?: Record<string, unknown>;
+  headers?: Record<string, string>;
 };

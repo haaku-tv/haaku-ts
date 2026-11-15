@@ -1,4 +1,4 @@
-import { HaakuConfig } from "../types/class.ts";
+import type { HaakuConfig } from "../types/class.ts";
 import { Api } from "./api.ts";
 
 export class BaseEndpoint {

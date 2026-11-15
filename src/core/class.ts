@@ -2,8 +2,9 @@ import { AdminEndpoint } from "../endpoints/admin.ts";
 import { AuthEndpoint } from "../endpoints/auth.ts";
 import { CalendarEndpoint } from "../endpoints/calendars/index.ts";
 import { HealthCheckEndpoint } from "../endpoints/healthcheck.ts";
-import { HaakuConfig } from "../types/class.ts";
-import { HealthcheckResponse } from "../types/endpoints/healthcheck.ts";
+import { MovieEndpoint } from "../endpoints/movies/index.ts";
+import type { HaakuConfig } from "../types/class.ts";
+import type { HealthcheckResponse } from "../types/endpoints/healthcheck.ts";
 
 export class Haaku {
   private readonly config: HaakuConfig;
@@ -13,19 +14,23 @@ export class Haaku {
   }
 
   get healthcheck(): () => Promise<HealthcheckResponse> {
-    const endpoint = new HealthCheckEndpoint(this.config)
-    return endpoint.healthcheck.bind(endpoint)
+    const endpoint = new HealthCheckEndpoint(this.config);
+    return endpoint.healthcheck.bind(endpoint);
   }
 
-  get admin() {
-    return new AdminEndpoint(this.config)
+  get admin(): AdminEndpoint {
+    return new AdminEndpoint(this.config);
   }
 
-  get auth() {
-    return new AuthEndpoint(this.config)
+  get auth(): AuthEndpoint {
+    return new AuthEndpoint(this.config);
   }
 
-  get calendars() {
-    return new CalendarEndpoint(this.config)
+  get calendars(): CalendarEndpoint {
+    return new CalendarEndpoint(this.config);
+  }
+
+  get movies(): MovieEndpoint {
+    return new MovieEndpoint(this.config);
   }
 }
