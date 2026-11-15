@@ -4,6 +4,7 @@ import { CalendarEndpoint } from "../endpoints/calendars/index.ts";
 import { EpisodeEndpoint } from "../endpoints/episodes/index.ts";
 import { HealthCheckEndpoint } from "../endpoints/healthcheck.ts";
 import { MovieEndpoint } from "../endpoints/movies/index.ts";
+import { PersonEndpoint } from "../endpoints/people/index.ts";
 import { SeasonEndpoint } from "../endpoints/seasons/index.ts";
 import { ShowEndpoint } from "../endpoints/shows/index.ts";
 import type { HaakuConfig } from "../types/class.ts";
@@ -47,5 +48,9 @@ export class Haaku {
 
   get episodes(): EpisodeEndpoint {
     return new EpisodeEndpoint(this.config);
+  }
+
+  get people(): PersonEndpoint {
+    return new PersonEndpoint(this.config);
   }
 }
